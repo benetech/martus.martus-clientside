@@ -52,7 +52,7 @@ public class UiUtilities
 		String[] contents = {cause};
 		String[] buttons = {ok};
 
-		new UiNotifyDlg(parent, title, contents, buttons, tokenReplacement);
+		createNotifyDlg(parent, title, contents, buttons, tokenReplacement);
 	}
 
 	public static void messageDlg(UiLocalization localization, Frame parent, String baseTag, String message, Map tokenReplacement)
@@ -63,7 +63,7 @@ public class UiUtilities
 		String[] contents = {cause, "", message};
 		String[] buttons = {ok};
 
-		new UiNotifyDlg(parent, title, contents, buttons, tokenReplacement);
+		createNotifyDlg(parent, title, contents, buttons, tokenReplacement);
 	}
 
 	public static boolean confirmDlg(UiLocalization localization, Frame parent, String baseTag)
@@ -117,11 +117,18 @@ public class UiUtilities
 
 	public static boolean confirmDlg(Frame parent, String title, String[] contents, String[] buttons, Map tokenReplacement) 
 	{
-		UiNotifyDlg notify = new UiNotifyDlg(parent, title, contents, buttons, tokenReplacement);
+		UiNotifyDlg notify = createNotifyDlg(parent, title, contents, buttons,
+				tokenReplacement);
 		String result = notify.getResult();
 		if(result == null)
 			return false;
 		return(result.equals(buttons[0]));
+	}
+
+	private static UiNotifyDlg createNotifyDlg(Frame parent, String title,
+			String[] contents, String[] buttons, Map tokenReplacement)
+	{
+		return new UiNotifyDlg(parent, title, contents, buttons, tokenReplacement);
 	}
 
 }
