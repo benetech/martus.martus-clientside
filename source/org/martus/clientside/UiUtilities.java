@@ -128,7 +128,10 @@ public class UiUtilities
 	private static UiNotifyDlg createNotifyDlg(Frame parent, String title,
 			String[] contents, String[] buttons, Map tokenReplacement)
 	{
-		return new UiNotifyDlg(parent, title, contents, buttons, tokenReplacement);
+		if(parent != null)
+			return new UiNotifyDlg(parent, title, contents, buttons, tokenReplacement);
+		
+		return new UiNotifyDlg(title, contents, buttons, tokenReplacement);
 	}
 
 }
