@@ -28,6 +28,7 @@ package org.martus.clientside;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,6 +48,13 @@ import org.martus.swing.Utilities;
 
 public class UiBasicSigninDlg extends JDialog
 {
+	public UiBasicSigninDlg(UiLocalization localizationToUse, CurrentUiState uiStateToUse, int mode, String username, char[] password)
+	{
+		// NOTE: Pass (Dialog)null to force this window to show up in the Task Bar
+		super((Dialog)null, true);
+		initalize(localizationToUse, uiStateToUse, null, mode, username, password);
+	}
+
 	public UiBasicSigninDlg(UiLocalization localizationToUse, CurrentUiState uiStateToUse, JFrame owner, int mode, String username, char[] password)
 	{
 		super(owner, true);
