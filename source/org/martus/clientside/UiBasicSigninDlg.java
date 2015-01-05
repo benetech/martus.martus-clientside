@@ -101,7 +101,7 @@ public class UiBasicSigninDlg extends JDialog
 		}
 		else
 		{	
-			Utilities.centerDlg(this);
+			Utilities.packAndCenterWindow(this);
 		}
 		setVisible(true);
 	}
@@ -153,7 +153,7 @@ public class UiBasicSigninDlg extends JDialog
 
 	public void sizeHasChanged()
 	{
-		Utilities.centerDlg(this);
+		Utilities.packAndCenterWindow(this);
 	}
 
 	public void virtualPasswordHasChanged()
