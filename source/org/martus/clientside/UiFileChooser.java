@@ -35,9 +35,11 @@ import java.awt.Component;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 
 import org.martus.common.MartusConstants;
+import org.martus.common.MartusLogger;
 import org.martus.swing.UiLanguageDirection;
 
 public class UiFileChooser extends JFileChooser
@@ -93,7 +95,41 @@ public class UiFileChooser extends JFileChooser
 		//NOTE: Mac sometimes hangs if you pass a null or non-existent directory
 		File nonNullExistingCurrentDirectory = ensureNonNullExistingCurrentDirectory(currentDirectory);
 		UiFileChooser chooser = new UiFileChooser(title, null, nonNullExistingCurrentDirectory, buttonLabel, filterToUse);
-		return getFileResults(chooser.showOpenDialog(owner), chooser);
+		showOpenDialogLater openDialogOnEventThread = new showOpenDialogLater(chooser, owner);
+		try
+		{
+			SwingUtilities.invokeAndWait(openDialogOnEventThread);
+		} 
+		catch (Exception e)
+		{
+			MartusLogger.logException(e);
+		}
+		return getFileResults(openDialogOnEventThread.getResult(), chooser);
+	}
+	
+	static class showOpenDialogLater implements Runnable
+	{
+		//NOTE: Mac OS 10.4 and greater sometimes hangs if showOpenDialog is not ran on event thread.
+		showOpenDialogLater(UiFileChooser chooserToUse, Component ownerToUse)
+		{
+			chooser = chooserToUse;
+			owner = ownerToUse;
+		}
+
+		@Override
+		public void run()
+		{
+			result = chooser.showOpenDialog(owner);
+		}
+		
+		public int getResult()
+		{
+			return result;
+		}
+		
+		UiFileChooser chooser;
+		Component owner;
+		int result;
 	}
 	
 	private static File ensureNonNullExistingCurrentDirectory(File currentDirectory) 
