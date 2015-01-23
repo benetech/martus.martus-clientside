@@ -95,7 +95,7 @@ public class UiFileChooser extends JFileChooser
 		//NOTE: Mac sometimes hangs if you pass a null or non-existent directory
 		File nonNullExistingCurrentDirectory = ensureNonNullExistingCurrentDirectory(currentDirectory);
 		UiFileChooser chooser = new UiFileChooser(title, null, nonNullExistingCurrentDirectory, buttonLabel, filterToUse);
-		showOpenDialogLater openDialogOnEventThread = new showOpenDialogLater(chooser, owner);
+		ShowOpenDialogLater openDialogOnEventThread = new ShowOpenDialogLater(chooser, owner);
 		try
 		{
 			SwingUtilities.invokeAndWait(openDialogOnEventThread);
@@ -107,10 +107,11 @@ public class UiFileChooser extends JFileChooser
 		return getFileResults(openDialogOnEventThread.getResult(), chooser);
 	}
 	
-	static class showOpenDialogLater implements Runnable
+	static class ShowOpenDialogLater implements Runnable
 	{
 		//NOTE: Mac OS 10.4 and greater sometimes hangs if showOpenDialog is not ran on event thread.
-		showOpenDialogLater(UiFileChooser chooserToUse, Component ownerToUse)
+		//TODO In the long run, we should see whether UiFileChooser should continue to exist, or be replaced with an Fx version, or be subclasses for FIS vs. PureFx.
+		ShowOpenDialogLater(UiFileChooser chooserToUse, Component ownerToUse)
 		{
 			chooser = chooserToUse;
 			owner = ownerToUse;
