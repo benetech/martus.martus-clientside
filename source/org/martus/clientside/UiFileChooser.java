@@ -95,6 +95,14 @@ public class UiFileChooser extends JFileChooser
 		//NOTE: Mac sometimes hangs if you pass a null or non-existent directory
 		File nonNullExistingCurrentDirectory = ensureNonNullExistingCurrentDirectory(currentDirectory);
 		UiFileChooser chooser = new UiFileChooser(title, null, nonNullExistingCurrentDirectory, buttonLabel, filterToUse);
+		return getFileResults(chooser.showOpenDialog(owner), chooser);
+	}
+	
+	static public FileDialogResults displayFileOpenDialogOnEventThread(Component owner, String title, File currentDirectory, String buttonLabel, FileFilter filterToUse)
+	{
+		//NOTE: Mac sometimes hangs if you pass a null or non-existent directory
+		File nonNullExistingCurrentDirectory = ensureNonNullExistingCurrentDirectory(currentDirectory);
+		UiFileChooser chooser = new UiFileChooser(title, null, nonNullExistingCurrentDirectory, buttonLabel, filterToUse);
 		ShowOpenDialogLater openDialogOnEventThread = new ShowOpenDialogLater(chooser, owner);
 		try
 		{
@@ -106,7 +114,7 @@ public class UiFileChooser extends JFileChooser
 		}
 		return getFileResults(openDialogOnEventThread.getResult(), chooser);
 	}
-	
+
 	static class ShowOpenDialogLater implements Runnable
 	{
 		//NOTE: Mac OS 10.4 and greater sometimes hangs if showOpenDialog is not ran on event thread.
