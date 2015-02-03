@@ -45,7 +45,7 @@ import com.subgraph.orchid.TorInitializationListener;
 import com.subgraph.orchid.xmlrpc.OrchidXmlRpcTransportFactory;
 
 
-public class OrchidTransportWrapper extends TransportWrapperWithOfflineMode
+abstract public class OrchidTransportWrapper extends TransportWrapperWithOfflineMode
 {
 	protected OrchidTransportWrapper(MartusOrchidDirectoryStore storeToUse) throws Exception
 	{
