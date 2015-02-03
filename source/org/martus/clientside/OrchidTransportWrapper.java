@@ -47,16 +47,6 @@ import com.subgraph.orchid.xmlrpc.OrchidXmlRpcTransportFactory;
 
 public class OrchidTransportWrapper extends TransportWrapperWithOfflineMode
 {
-	public static OrchidTransportWrapper createWithoutPersistentStore() throws Exception
-	{
-		return create(new MartusOrchidDirectoryStore());
-	}
-	
-	private static OrchidTransportWrapper create(MartusOrchidDirectoryStore storeToUse) throws Exception
-	{
-		return new OrchidTransportWrapper(storeToUse);
-	}
-	
 	protected OrchidTransportWrapper(MartusOrchidDirectoryStore storeToUse) throws Exception
 	{
 		isTorActive = new SimpleBooleanProperty();
