@@ -75,7 +75,7 @@ public class MartusBulletinRetriever
 		transport = transportToUse;
 	}
 	
-	public void initalizeServer(String serverIPAddress, String serverPublicKeyToUse) throws Exception
+	public void initalizeServerForTesting(String serverIPAddress, String serverPublicKeyToUse) throws Exception
 	{
 		if (transport == null)
 			transport = OrchidTransportWrapper.createWithoutPersistentStore();

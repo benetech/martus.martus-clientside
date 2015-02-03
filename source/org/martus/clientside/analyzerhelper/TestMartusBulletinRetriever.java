@@ -161,7 +161,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		
 		assertFalse("server hasn't been configured yet", retriever.isServerAvailable());
 		
-		retriever.initalizeServer(TEST_SERVER_IP, "some random public key");
+		retriever.initalizeServerForTesting(TEST_SERVER_IP, "some random public key");
 		retriever.serverNonSSL = new NoServerNetworkInterfaceForNonSSLHandler();
 		assertFalse("invalid server should not be pingable", retriever.isServerAvailable());
 		retriever.serverNonSSL = new TestServerNetworkInterfaceForNonSSLHandler();
@@ -368,7 +368,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		ByteArrayInputStream streamIn = new ByteArrayInputStream(streamOut.toByteArray());
 		MartusBulletinRetriever retriever = new MartusBulletinRetriever(streamIn, password );
 		streamIn.close();
-		retriever.initalizeServer(TEST_SERVER_IP, "some random public key");
+		retriever.initalizeServerForTesting(TEST_SERVER_IP, "some random public key");
 		retriever.serverNonSSL = new TestServerNetworkInterfaceForNonSSLHandler();
 		retriever.setSSLServerToUse(mockGateway);
 		List emptyList = retriever.getFieldOfficeBulletinIds();
@@ -454,7 +454,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		ByteArrayInputStream streamIn = new ByteArrayInputStream(streamOut.toByteArray());
 		MartusBulletinRetriever retriever = new MartusBulletinRetriever(streamIn, password );
 		streamIn.close();
-		retriever.initalizeServer(TEST_SERVER_IP, "some random public key");
+		retriever.initalizeServerForTesting(TEST_SERVER_IP, "some random public key");
 		retriever.serverNonSSL = new TestServerNetworkInterfaceForNonSSLHandler();
 		retriever.setSSLServerToUse(mockGateway);
 		
