@@ -27,9 +27,6 @@ package org.martus.clientside;
 
 import java.io.File;
 
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleBooleanProperty;
-
 import javax.net.ssl.TrustManager;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
@@ -49,7 +46,6 @@ abstract public class OrchidTransportWrapper extends TransportWrapperWithOffline
 {
 	protected OrchidTransportWrapper(MartusOrchidDirectoryStore storeToUse) throws Exception
 	{
-		isTorActive = new SimpleBooleanProperty();
 		isTorReady = false;
 
 		createRealTorClient(storeToUse);
@@ -67,7 +63,6 @@ abstract public class OrchidTransportWrapper extends TransportWrapperWithOffline
 
 	public void startTor()
 	{
-		isTorActive.setValue(true);
 		updateStatus();
 		if(!isTorReady)
 			new TorInitializer().start();
@@ -75,14 +70,12 @@ abstract public class OrchidTransportWrapper extends TransportWrapperWithOffline
 
 	public void startTorInSameThread()
 	{
-		isTorActive.setValue(true);
 		if(!isTorReady)
 			getTor().start();
 	}
 	
 	public void stopTor()
 	{
-		isTorActive.setValue(false);
 		updateStatus();
 	}
 	
@@ -99,17 +92,6 @@ abstract public class OrchidTransportWrapper extends TransportWrapperWithOffline
 	protected TorClient getTor()
 	{
 		return tor;
-	}
-	
-	public Property <Boolean> getIsTorActiveProperty()
-	{
-		return isTorActive;
-	}
-	
-	@Override
-	public boolean isTorEnabled()
-	{
-		return isTorActive.getValue();
 	}
 	
 	@Override
@@ -216,6 +198,5 @@ abstract public class OrchidTransportWrapper extends TransportWrapperWithOffline
 	private TorClient tor;
 	private ProgressMeterInterface progressMeter;
 
-	private Property <Boolean> isTorActive;
 	private boolean isTorReady;
 }
