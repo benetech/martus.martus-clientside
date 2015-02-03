@@ -34,7 +34,6 @@ import java.util.Vector;
 
 import org.martus.clientside.ClientSideNetworkGateway;
 import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer;
-import org.martus.clientside.OrchidTransportWrapper;
 import org.martus.common.Exceptions.ServerNotAvailableException;
 import org.martus.common.MartusUtilities.PublicInformationInvalidException;
 import org.martus.common.MartusUtilities.ServerErrorException;
@@ -69,7 +68,7 @@ public class MartusBulletinRetriever
 		this(keyPair, password, null);
 	}
 	
-	public MartusBulletinRetriever(InputStream keyPair, char[] password, OrchidTransportWrapper transportToUse) throws CryptoInitializationException, InvalidKeyPairFileVersionException, AuthorizationFailedException, IOException
+	public MartusBulletinRetriever(InputStream keyPair, char[] password, TransportWrapper transportToUse) throws CryptoInitializationException, InvalidKeyPairFileVersionException, AuthorizationFailedException, IOException
 	{
 		security = new MartusSecurity();
 		security.readKeyPair(keyPair, password);
