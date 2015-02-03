@@ -52,7 +52,7 @@ public class OrchidTransportWrapper extends TransportWrapperWithOfflineMode
 		return create(new MartusOrchidDirectoryStore());
 	}
 	
-	public static OrchidTransportWrapper create(MartusOrchidDirectoryStore storeToUse) throws Exception
+	private static OrchidTransportWrapper create(MartusOrchidDirectoryStore storeToUse) throws Exception
 	{
 		return new OrchidTransportWrapper(storeToUse);
 	}
