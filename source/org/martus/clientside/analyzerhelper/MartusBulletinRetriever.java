@@ -49,6 +49,7 @@ import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPI;
 import org.martus.common.network.NonSSLNetworkAPIWithHelpers;
+import org.martus.common.network.TransportWrapper;
 import org.martus.common.packet.UniversalId;
 import org.martus.util.StreamableBase64.InvalidBase64Exception;
 
@@ -75,10 +76,9 @@ public class MartusBulletinRetriever
 		transport = transportToUse;
 	}
 	
-	public void initalizeServerForTesting(String serverIPAddress, String serverPublicKeyToUse) throws Exception
+	public void initalizeServerForTesting(String serverIPAddress, String serverPublicKeyToUse, TransportWrapper transportToUse) throws Exception
 	{
-		if (transport == null)
-			transport = OrchidTransportWrapper.createWithoutPersistentStore();
+		transport = transportToUse;
 		serverPublicKey = serverPublicKeyToUse;
 		serverNonSSL = new ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(serverIPAddress, transport);
 		serverSLL = ClientSideNetworkGateway.buildGateway(serverIPAddress, serverPublicKeyToUse, transport);
@@ -189,5 +189,5 @@ public class MartusBulletinRetriever
 	private ClientSideNetworkGateway serverSLL;
 	private MartusSecurity security;
 	private String serverPublicKey;
-	private OrchidTransportWrapper transport;
+	private TransportWrapper transport;
 }
