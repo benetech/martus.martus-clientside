@@ -34,6 +34,7 @@ import java.util.Vector;
 
 import org.martus.clientside.ClientSideNetworkGateway;
 import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer;
+import org.martus.clientside.OrchidTransportWrapper;
 import org.martus.common.Exceptions.ServerNotAvailableException;
 import org.martus.common.MartusUtilities.PublicInformationInvalidException;
 import org.martus.common.MartusUtilities.ServerErrorException;
@@ -44,7 +45,6 @@ import org.martus.common.crypto.MartusCrypto.CryptoInitializationException;
 import org.martus.common.crypto.MartusCrypto.InvalidKeyPairFileVersionException;
 import org.martus.common.crypto.MartusCrypto.MartusSignatureException;
 import org.martus.common.crypto.MartusSecurity;
-import org.martus.common.network.OrchidTransportWrapper;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPI;
