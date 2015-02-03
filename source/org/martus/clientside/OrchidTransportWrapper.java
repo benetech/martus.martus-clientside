@@ -57,7 +57,7 @@ public class OrchidTransportWrapper extends TransportWrapperWithOfflineMode
 		return new OrchidTransportWrapper(storeToUse);
 	}
 	
-	private OrchidTransportWrapper(MartusOrchidDirectoryStore storeToUse) throws Exception
+	protected OrchidTransportWrapper(MartusOrchidDirectoryStore storeToUse) throws Exception
 	{
 		isTorActive = new SimpleBooleanProperty();
 		isTorReady = false;
@@ -128,7 +128,7 @@ public class OrchidTransportWrapper extends TransportWrapperWithOfflineMode
 		if(!super.isReady())
 			return false;
 		
-		if(!isTorActive.getValue())
+		if(!isTorEnabled())
 			return true;
 		
 		return isTorReady;
@@ -139,7 +139,7 @@ public class OrchidTransportWrapper extends TransportWrapperWithOfflineMode
 		if(progressMeter == null)
 			return;
 		
-		if(isTorActive.getValue())
+		if(isTorEnabled())
 		{
 			if(isTorReady)
 			{
@@ -163,7 +163,7 @@ public class OrchidTransportWrapper extends TransportWrapperWithOfflineMode
 	@Override
 	public XmlRpcTransportFactory createTransport(XmlRpcClient client, TrustManager tm)	throws Exception 
 	{
-		if(!isTorActive.getValue())
+		if(!isTorEnabled())
 			return null;
 		
 		if(!isReady())
