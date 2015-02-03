@@ -59,6 +59,7 @@ import org.martus.common.network.ClientSideNetworkInterface;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPIWithHelpers;
+import org.martus.common.network.PassThroughTransportWrapper;
 import org.martus.common.packet.UniversalId;
 import org.martus.common.test.MockBulletinStore;
 import org.martus.common.test.UniversalIdForTesting;
@@ -161,7 +162,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		
 		assertFalse("server hasn't been configured yet", retriever.isServerAvailable());
 		
-		retriever.initalizeServerForTesting(TEST_SERVER_IP, "some random public key");
+		retriever.initalizeServerForTesting(TEST_SERVER_IP, "some random public key", new PassThroughTransportWrapper());
 		retriever.serverNonSSL = new NoServerNetworkInterfaceForNonSSLHandler();
 		assertFalse("invalid server should not be pingable", retriever.isServerAvailable());
 		retriever.serverNonSSL = new TestServerNetworkInterfaceForNonSSLHandler();
@@ -368,7 +369,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		ByteArrayInputStream streamIn = new ByteArrayInputStream(streamOut.toByteArray());
 		MartusBulletinRetriever retriever = new MartusBulletinRetriever(streamIn, password );
 		streamIn.close();
-		retriever.initalizeServerForTesting(TEST_SERVER_IP, "some random public key");
+		retriever.initalizeServerForTesting(TEST_SERVER_IP, "some random public key", new PassThroughTransportWrapper());
 		retriever.serverNonSSL = new TestServerNetworkInterfaceForNonSSLHandler();
 		retriever.setSSLServerToUse(mockGateway);
 		List emptyList = retriever.getFieldOfficeBulletinIds();
@@ -454,7 +455,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		ByteArrayInputStream streamIn = new ByteArrayInputStream(streamOut.toByteArray());
 		MartusBulletinRetriever retriever = new MartusBulletinRetriever(streamIn, password );
 		streamIn.close();
-		retriever.initalizeServerForTesting(TEST_SERVER_IP, "some random public key");
+		retriever.initalizeServerForTesting(TEST_SERVER_IP, "some random public key", new PassThroughTransportWrapper());
 		retriever.serverNonSSL = new TestServerNetworkInterfaceForNonSSLHandler();
 		retriever.setSSLServerToUse(mockGateway);
 		
