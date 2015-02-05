@@ -38,6 +38,9 @@ public class FileDialogHelpers
 
 	public static File doFileOpenDialog(Component owner, String title, String okButtonLabel, File directory, FileFilter filter)
 	{
+		if(owner == null)
+			return UiFileChooser.displayFileOpenDialogOnEventThread(owner, title, directory, okButtonLabel, FileDialogHelpers.NO_FILTER).getChosenFile();
+		
 		File chosenFile = null;
 		while(true)
 		{
