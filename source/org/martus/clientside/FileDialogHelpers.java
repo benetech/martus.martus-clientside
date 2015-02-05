@@ -29,6 +29,7 @@ import java.awt.Component;
 import java.io.File;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 
 import org.martus.clientside.UiFileChooser.FileDialogResults;
@@ -38,7 +39,7 @@ public class FileDialogHelpers
 
 	public static File doFileOpenDialog(Component owner, String title, String okButtonLabel, File directory, FileFilter filter)
 	{
-		if(owner == null)
+		if(!SwingUtilities.isEventDispatchThread())
 			return UiFileChooser.displayFileOpenDialogOnEventThread(owner, title, directory, okButtonLabel, FileDialogHelpers.NO_FILTER).getChosenFile();
 		
 		File chosenFile = null;
