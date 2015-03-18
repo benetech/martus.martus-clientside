@@ -32,6 +32,7 @@ between Benetech and WCS dated 5/1/05.
 package org.martus.clientside;
 
 import java.awt.Component;
+import java.awt.Frame;
 import java.io.File;
 
 import javax.swing.JFileChooser;
@@ -41,6 +42,7 @@ import javax.swing.filechooser.FileFilter;
 import org.martus.common.MartusConstants;
 import org.martus.common.MartusLogger;
 import org.martus.swing.UiLanguageDirection;
+import org.martus.swing.Utilities;
 
 public class UiFileChooser extends JFileChooser
 {
@@ -95,7 +97,12 @@ public class UiFileChooser extends JFileChooser
 		//NOTE: Mac sometimes hangs if you pass a null or non-existent directory
 		File nonNullExistingCurrentDirectory = ensureNonNullExistingCurrentDirectory(currentDirectory);
 		UiFileChooser chooser = new UiFileChooser(title, null, nonNullExistingCurrentDirectory, buttonLabel, filterToUse);
-		return getFileResults(chooser.showOpenDialog(owner), chooser);
+		if(owner != null)
+			return getFileResults(chooser.showOpenDialog(owner), chooser);
+
+		Frame frame = new Frame();
+		frame.setIconImage(Utilities.getMartusIconImage());
+		return getFileResults(chooser.showOpenDialog(frame), chooser);
 	}
 	
 	static public FileDialogResults displayFileOpenDialogOnEventThread(Component owner, String title, File currentDirectory, String buttonLabel, FileFilter filterToUse)
@@ -128,7 +135,16 @@ public class UiFileChooser extends JFileChooser
 		@Override
 		public void run()
 		{
-			result = chooser.showOpenDialog(owner);
+			if(owner == null)
+			{
+				Frame frame = new Frame();
+				frame.setIconImage(Utilities.getMartusIconImage());
+				result = chooser.showOpenDialog(frame);
+			}
+			else
+			{
+				result = chooser.showOpenDialog(owner);
+			}
 		}
 		
 		public int getResult()
