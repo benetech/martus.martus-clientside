@@ -89,7 +89,12 @@ public class UiFileChooser extends JFileChooser
 			file = new File(directory, defaultFilename);
 		// NOTE: Save dialog always uses L&F-specific approve button text
 		UiFileChooser chooser = new UiFileChooser(title, file, directory, null, filterToUse);
-		return getFileResults(chooser.showSaveDialog(owner), chooser);
+		if(owner != null)
+			return getFileResults(chooser.showSaveDialog(owner), chooser);
+
+		Frame frame = new Frame();
+		frame.setIconImage(Utilities.getMartusIconImage());
+		return getFileResults(chooser.showSaveDialog(frame), chooser);
 	}
 	
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentDirectory, String buttonLabel, FileFilter filterToUse)
